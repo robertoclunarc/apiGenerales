@@ -1,0 +1,1 @@
+1. creacion de los script en nodejs, typescript para insertar, actualizar, eliminar y consulatr registros para las tablas adm_activos, compras_proveedores y config_cargos de la BD "intranet" del sistema sisglobal.
