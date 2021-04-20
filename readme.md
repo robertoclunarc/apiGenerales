@@ -1,9 +1,9 @@
 # Creacion de los script en nodejs, typescript para insertar, actualizar, eliminar y consultar registros de Proveedores, cargos y activos de la BD del sistema sisglobal.
 
-##Tablas:
--compras_proveedores
--config_cargos
--adm_activos
+## Tablas:
+- compras_proveedores
+- config_cargos
+- adm_activos
 
 ## Variables de entorno:
 - PORT
