@@ -12,7 +12,6 @@ dotenv.config();
 app.set("port", process.env.PORT || 3000);
 app.set('trust proxy', true);
 
-
 //middlewares
 app.use(morgan("dev"));
 app.use(express.json());

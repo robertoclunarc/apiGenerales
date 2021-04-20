@@ -27,7 +27,9 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
         valoracion: req.params.valoracion,
         telefono: req.params.telefono,
         observaciones: req.params.observaciones,
-        contacto: req.params.contacto
+        contacto: req.params.contacto,
+        forma_envio: req.params.formas_envio,
+        condiciones: req.params.condiciones
     }
     let where: string[] = [];
     
@@ -62,6 +64,9 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
         if (prov.contacto!="NULL"){
             where.push( " LOWER(contacto) LIKE LOWER('%" + prov.contacto + "%')");
         }
+        if (prov.forma_envio!="NULL"){
+            where.push( " LOWER(formas_envio) LIKE LOWER('%" + prov.forma_envio + "%')");
+        }
 
         where.forEach(function(where, index) {
             if (index==0){
@@ -87,16 +92,25 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
 }
 
 export const createRecord = async (req: Request, resp: Response) => {
-    let newPost: IProveedores = req.body;      
+    let newPost: IProveedores = req.body;
+    const ExpReg = /-/g;
+    newPost.rif = newPost.rif.replace(ExpReg, '');
+    newPost.rif = newPost.rif.toUpperCase();
+    console.log(newPost.rif);
+    let result = await db.querySelect("Select * FROM compras_proveedores where rif=?", [newPost.rif]);
+    if (result.length>0){
+        return resp.status(402).json({ msg: "El Rif Ya Existe" });
+    }
     try {
-        const result = await db.querySelect("INSERT INTO compras_proveedores SET ?", [newPost]);    
+        result = await db.querySelect("INSERT INTO compras_proveedores SET ?", [newPost]);    
         newPost.idProveedor = result.insertId;
-        return resp.status(201).json(newPost.idProveedor);
+        return resp.status(201).json(newPost.idProveedor);        
 
     } catch(error) {
         console.log(error);
         resp.json({"Error": error});
     }
+    
 }
 
 export const updateRecord = async (req: Request, resp: Response) => {

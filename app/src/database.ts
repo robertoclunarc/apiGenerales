@@ -37,12 +37,13 @@ class database {
         }
         //await this.cnn;
         //this.cnn = null;
-        this.desconectarDB();
+        //this.desconectarDB();
         return result[0];
     }
 }
 
 const db = new database();
 db.conectarBD();
-
+console.log(key.host);
+console.log(key.password);
 export default db;

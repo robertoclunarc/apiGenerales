@@ -9,4 +9,5 @@ router.post('/insertar', createRecord);
 router.put('/actualizar/:IdRec', updateRecord);
 router.delete('/eliminar/:IdRec', deleteRecord);
 
+
 export default router;

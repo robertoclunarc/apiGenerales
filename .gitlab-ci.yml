@@ -1,0 +1,77 @@
+image: node:12
+
+stages:
+    - dependencias
+    - build
+    - containerization
+    - deploy
+
+cache:
+    paths:
+        - node_modules/
+
+install_dependencies:
+    stage: dependencias
+    script:
+        - npm install
+        # - npm install -g typescript
+    artifacts:
+        paths:
+            - node_modules/
+
+# DESARROLLO CAMBIA
+build:
+    stage: build
+    script:
+        - docker build -t n-config-generales .
+        #- docker image rm my-registry/my-application
+
+register_image:
+    stage: containerization
+    variables:
+        SHA: $CI_COMMIT_SHA
+    script:
+        - docker tag n-config-generales $DOCKER_SERVER/n-config-generales:$SHA
+        - docker tag n-config-generales $DOCKER_SERVER/n-config-generales:latest
+        - docker push $DOCKER_SERVER/n-config-generales:$SHA
+        - docker push $DOCKER_SERVER/n-config-generales:latest
+    only:
+        - master
+# -------------
+
+deploy_to_desarrollo:
+    stage: deploy
+    variables:
+        MYSQL_SERVER: $DESA_MYSQL_SERVER
+        MYSQL_USER: $DESA_MYSQL_USER
+        MYSQL_PW: $DESA_MYSQL_PASS
+        MYSQL_DB: $DESA_MYSQL_DB
+        MYSQL_PORT: $DESA_MYSQL_PORT
+        APP_PORT: $APP_PORT
+    script:
+        - docker-compose down
+        - docker-compose up -d --build
+        - echo $DESA_MYSQL_SERVER
+    only:
+        - desarrollo
+    tags:
+        - desarrollo
+
+deploy_to_prod:
+    stage: deploy
+    variables:
+        MYSQL_SERVER: $PROD_MYSQL_SERVER
+        MYSQL_USER: $DESA_MYSQL_USER
+        MYSQL_PW: $DESA_MYSQL_PASS
+        MYSQL_DB: $DESA_MYSQL_DB
+        MYSQL_PORT: $DESA_MYSQL_PORT
+        APP_PORT: $APP_PORT
+    script:
+        - echo $PROD_MYSQL_SERVER
+        - docker-compose down
+        - docker-compose up -d --build
+    only:
+        - master
+    when: manual
+    tags:
+        - master

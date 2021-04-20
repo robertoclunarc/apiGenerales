@@ -4,7 +4,9 @@ export interface IProveedores {
     rif: string; 
     direccion: string; 
     valoracion: number; 
-    observaciones: string; 
-    telefono: string; 
-    contacto: string; 
+    observaciones?: string; 
+    telefono?: string; 
+    contacto: string;
+    formas_envio?: string;
+    condiciones?: string; 
 }
