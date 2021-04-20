@@ -1,4 +1,4 @@
-# Creacion de los script en nodejs, typescript para insertar, actualizar, eliminar y consultar registros de Proveedores, cargos y activos de la BD del sistema sisglobal.
+# Script en nodejs, typescript para los insert, update, delete y consultas de registros de Proveedores, Cargos y Cctivos de la BD del sistema sisglobal.
 
 ## Tablas:
 - compras_proveedores
