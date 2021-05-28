@@ -15,7 +15,7 @@
 
 ## Variables de entorno:
 ```
-- PORT
+- APP_PORT
 - JWT_SECRET
 - MYSQL_SERVER
 - MYSQL_USER
@@ -43,11 +43,11 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 
 ## Compras
 ### Estos accesos estan deshabilitados
- ~~get "/compras/proveedores/consultar"~~
- ~~get "/compras/proveedores/filtrar/:Id/:nombre/:rif/:direccion/:valoracion/:telefono/:observaciones/:contacto"~~
- ~~post "/compras/proveedores/insertar"~~
- ~~put "/compras/proveedores/actualizar/:IdProv"~~
- ~~delete "/compras/proveedores/eliminar/:IdProv"~~
+ - ~~get "/compras/proveedores/consultar"~~
+ - ~~get "/compras/proveedores/filtrar/:Id/:nombre/:rif/:direccion/:valoracion/:telefono/:observaciones/:contacto"~~
+ - ~~post "/compras/proveedores/insertar"~~
+ - ~~put "/compras/proveedores/actualizar/:IdProv"~~
+ - ~~delete "/compras/proveedores/eliminar/:IdProv"~~
 
 ## Configuraciones
 - get "/config/cargos/consultar"
