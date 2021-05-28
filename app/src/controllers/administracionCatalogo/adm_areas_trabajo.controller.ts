@@ -1,9 +1,9 @@
 import { json, Request, Response } from "express";
 import db from "../../database";
-import { Iconfig_cargos } from "../../interfaces/configuraciones/configuraciones.interface";
+import { Iadm_areas_trabajo } from "../../interfaces/AdministracionCatalogo/AdmCatalogo.interface";
 
 export const SelectREcordAll = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM config_cargos where estatus=1";    
+    let consulta = "SELECT  atg.*, g.nombre as gerencia FROM adm_areas_trabajo atg  INNER JOIN gen_area_negocio g ON g.idGenAreaNegocio = atg.idGenAreaNegocio ORDER BY atg.idGenAreaNegocio, atg.idAreaTrabajo";    
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
@@ -17,30 +17,25 @@ export const SelectREcordAll = async (req: Request, resp: Response) => {
 }
 
 export const SelectRecordFilter = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM config_cargos";
-    let Cargo = {
-        idConfigCargo: req.params.Id,
-        nombre: req.params.nombre,
-        descripcion: req.params.descripcion,  
-        idConfigGerencia: req.params.idGerencia
+    let consulta = "Select * FROM adm_areas_trabajo";
+    let Area = {
+        idAreaTrabajo: req.params.Id,
+        nombre: req.params.nombre,          
+        idGenAreaNegocio: req.params.idGenAreaNegocio
     }
     let where: string[] = [];
     
-    if (Cargo.idConfigCargo!="NULL" || Cargo.nombre!="NULL" || Cargo.descripcion!="NULL" || Cargo.idConfigGerencia!="NULL"){        
-        if (Cargo.idConfigCargo!="NULL"){
-           where.push( " idConfigCargo =" + Cargo.idConfigCargo);
+    if (Area.idAreaTrabajo!="NULL" || Area.nombre!="NULL" || Area.idGenAreaNegocio!="NULL"){        
+        if (Area.idAreaTrabajo!="NULL"){
+           where.push( " idAreaTrabajo =" + Area.idAreaTrabajo);
         }
 
-        if(Cargo.nombre!="NULL"){
-            where.push( " LOWER(nombre) LIKE LOWER('%" + Cargo.nombre + "%')");
-        }
+        if(Area.nombre!="NULL"){
+            where.push( " LOWER(nombre) LIKE LOWER('%" + Area.nombre + "%')");
+        }                
 
-        if(Cargo.descripcion!="NULL"){
-            where.push( " LOWER(descripcion) LIKE LOWER('%" + Cargo.descripcion + "%')");
-        }        
-
-        if (Cargo.idConfigGerencia!="NULL"){
-            where.push( " idConfigGerencia =" + Cargo.idConfigGerencia);
+        if (Area.idGenAreaNegocio!="NULL"){
+            where.push( " idGenAreaNegocio =" + Area.idGenAreaNegocio);
         }       
 
         where.forEach(function(where, index) {
@@ -67,11 +62,11 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
 }
 
 export const createRecord = async (req: Request, resp: Response) => {
-    let newPost: Iconfig_cargos = req.body;      
+    let newPost: Iadm_areas_trabajo = req.body;      
     try {
-        const result = await db.querySelect("INSERT INTO config_cargos SET ?", [newPost]);    
-        newPost.idConfigCargo = result.insertId;
-        return resp.status(201).json(newPost.idConfigCargo);
+        const result = await db.querySelect("INSERT INTO adm_areas_trabajo SET ?", [newPost]);    
+        newPost.idAreaTrabajo = result.insertId;
+        return resp.status(201).json(newPost.idAreaTrabajo);
 
     } catch(error) {
         console.log(error);
@@ -81,12 +76,12 @@ export const createRecord = async (req: Request, resp: Response) => {
 
 export const updateRecord = async (req: Request, resp: Response) => {
     let idx = req.params.IdRec;
-    let update: Iconfig_cargos = req.body;
+    let update: Iadm_areas_trabajo = req.body;
 
-    let consulta = ("UPDATE config_cargos SET ? WHERE idConfigCargo = ?");
+    let consulta = ("UPDATE adm_areas_trabajo SET ? WHERE idAreaTrabajo = ?");
     try {
         const result = await db.querySelect(consulta, [update, idx]);
-        resp.status(201).json("Cargo actualizado correctamente");
+        resp.status(201).json("Area de Trabajo actualizado correctamente");
     } catch (error) {
         console.log(error);
         resp.json({"Error": error })
@@ -95,10 +90,10 @@ export const updateRecord = async (req: Request, resp: Response) => {
 
 export const deleteRecord = async (req: Request, resp: Response) => {
     let idx = req.params.IdRec;
-    let consulta = ("UPDATE config_cargos SET estatus=0 WHERE idConfigCargo = ?");
+    let consulta = ("UPDATE adm_areas_trabajo SET estatus=0 WHERE idAreaTrabajo = ?");
     try {
         const result = await db.querySelect(consulta, [idx]);
-        resp.status(201).json("Cargo eliminado correctamente");
+        resp.status(201).json("Area de Trabajo eliminada correctamente");
     } catch (error) {
         console.log(error);
         resp.json({"Error ": error })

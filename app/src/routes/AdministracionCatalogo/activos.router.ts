@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { SelectREcordAll, SelectRecordFilter, createRecord, updateRecord, deleteRecord } from '../../controllers/administracionCatalogo/adm_activos.controller';
-
+//import { verifyToken } from "../../controllers/auth.controller";
 const router: Router= Router();
 
 router.get('/consultar', SelectREcordAll);

@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 const host = process.env.MYSQL_SERVER;
 const user = process.env.MYSQL_USER;
 const password = process.env.MYSQL_PW;

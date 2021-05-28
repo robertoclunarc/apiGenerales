@@ -1,11 +1,12 @@
 import { json, Request, Response } from "express";
 import db from "../../database";
-import { Iadm_activos } from "../../interfaces/AdministracionCatalogo/activos.interface";
+import { Iadm_activos } from "../../interfaces/AdministracionCatalogo/AdmCatalogo.interface";
 
 export const SelectREcordAll = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM adm_activos";    
+    let consulta = "Select * FROM adm_activos where activo=1";    
     try {
         const result = await db.querySelect(consulta);
+        
         if (result.length <= 0) {
             return resp.status(402).json({ msg: "No Data!" });
         }
@@ -106,12 +107,12 @@ export const updateRecord = async (req: Request, resp: Response) => {
 
 export const deleteRecord = async (req: Request, resp: Response) => {
     let idx = req.params.IdRec;
-    let consulta = ("DELETE FROM adm_activos WHERE idAdmActivo = ?");
+    let consulta = ("UPDATE adm_activos SET activo=0 WHERE idAdmActivo = ?");
     try {
         const result = await db.querySelect(consulta, [idx]);
         resp.status(201).json("Activo eliminado correctamente");
     } catch (error) {
         console.log(error);
-        resp.json({"Error": error })
+        resp.json({"Error ": error })
     }   
 }

@@ -1,9 +1,9 @@
 import { json, Request, Response } from "express";
 import db from "../../database";
-import { IProveedores } from "../../interfaces/compras/proveedor.interface";
+import { IProveedores } from "../../interfaces/compras/compras.interface";
 
 export const SelectRecordAll = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM compras_proveedores";    
+    let consulta = "Select * FROM compras_proveedores where estatus=1";    
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
@@ -129,12 +129,12 @@ export const updateRecord = async (req: Request, resp: Response) => {
 
 export const deleteRecord = async (req: Request, resp: Response) => {
     let idx = req.params.IdRec;
-    let consulta = ("DELETE FROM compras_proveedores WHERE idProveedor = ?");
+    let consulta = ("UPDATE compras_proveedores SET estatus=0 WHERE idProveedor = ?");
     try {
         const result = await db.querySelect(consulta, [idx]);
         resp.status(201).json("Proveedor eliminado correctamente");
     } catch (error) {
         console.log(error);
-        resp.json({"Error": error })
+        resp.json({"Error ": error })
     }   
 }

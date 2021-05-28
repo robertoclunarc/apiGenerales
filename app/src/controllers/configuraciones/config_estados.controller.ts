@@ -1,9 +1,9 @@
 import { json, Request, Response } from "express";
 import db from "../../database";
-import { Iconfig_cargos } from "../../interfaces/configuraciones/configuraciones.interface";
+import { Iconfig_estados } from "../../interfaces/configuraciones/configuraciones.interface";
 
 export const SelectREcordAll = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM config_cargos where estatus=1";    
+    let consulta = "SELECT * FROM config_estados where estatus=1";    
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
@@ -17,32 +17,22 @@ export const SelectREcordAll = async (req: Request, resp: Response) => {
 }
 
 export const SelectRecordFilter = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM config_cargos";
-    let Cargo = {
-        idConfigCargo: req.params.Id,
-        nombre: req.params.nombre,
-        descripcion: req.params.descripcion,  
-        idConfigGerencia: req.params.idGerencia
+    let consulta = "SELECT * FROM config_estados ";
+    let estado = {
+        idConfigEstado: req.params.Id,
+        nombre: req.params.nombre
     }
     let where: string[] = [];
     
-    if (Cargo.idConfigCargo!="NULL" || Cargo.nombre!="NULL" || Cargo.descripcion!="NULL" || Cargo.idConfigGerencia!="NULL"){        
-        if (Cargo.idConfigCargo!="NULL"){
-           where.push( " idConfigCargo =" + Cargo.idConfigCargo);
+    if (estado.idConfigEstado!="NULL" || estado.nombre!="NULL"){        
+        if (estado.idConfigEstado!="NULL"){
+           where.push( " idConfigEstado =" + estado.idConfigEstado);
         }
 
-        if(Cargo.nombre!="NULL"){
-            where.push( " LOWER(nombre) LIKE LOWER('%" + Cargo.nombre + "%')");
-        }
-
-        if(Cargo.descripcion!="NULL"){
-            where.push( " LOWER(descripcion) LIKE LOWER('%" + Cargo.descripcion + "%')");
+        if(estado.nombre!="NULL"){
+            where.push( " LOWER(nombre) LIKE LOWER('%" + estado.nombre + "%')");
         }        
-
-        if (Cargo.idConfigGerencia!="NULL"){
-            where.push( " idConfigGerencia =" + Cargo.idConfigGerencia);
-        }       
-
+        
         where.forEach(function(where, index) {
             if (index==0){
                 consulta = consulta + " WHERE " + where;
@@ -50,7 +40,8 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
                 consulta = consulta + " OR " + where;
             }
 
-        });        
+        });
+        
         console.log(consulta);
     }
     try {
@@ -67,11 +58,11 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
 }
 
 export const createRecord = async (req: Request, resp: Response) => {
-    let newPost: Iconfig_cargos = req.body;      
+    let newPost: Iconfig_estados = req.body;      
     try {
-        const result = await db.querySelect("INSERT INTO config_cargos SET ?", [newPost]);    
-        newPost.idConfigCargo = result.insertId;
-        return resp.status(201).json(newPost.idConfigCargo);
+        const result = await db.querySelect("INSERT INTO config_estados SET ?", [newPost]);    
+        newPost.idConfigEstado = result.insertId;
+        return resp.status(201).json(newPost.idConfigEstado);
 
     } catch(error) {
         console.log(error);
@@ -81,12 +72,12 @@ export const createRecord = async (req: Request, resp: Response) => {
 
 export const updateRecord = async (req: Request, resp: Response) => {
     let idx = req.params.IdRec;
-    let update: Iconfig_cargos = req.body;
+    let update: Iconfig_estados = req.body;
 
-    let consulta = ("UPDATE config_cargos SET ? WHERE idConfigCargo = ?");
+    let consulta = ("UPDATE config_estados SET ? WHERE idConfigEstado = ?");
     try {
         const result = await db.querySelect(consulta, [update, idx]);
-        resp.status(201).json("Cargo actualizado correctamente");
+        resp.status(201).json("Estado actualizado correctamente");
     } catch (error) {
         console.log(error);
         resp.json({"Error": error })
@@ -95,10 +86,10 @@ export const updateRecord = async (req: Request, resp: Response) => {
 
 export const deleteRecord = async (req: Request, resp: Response) => {
     let idx = req.params.IdRec;
-    let consulta = ("UPDATE config_cargos SET estatus=0 WHERE idConfigCargo = ?");
+    let consulta = ("UPDATE config_estados SET estatus=0 WHERE idConfigEstado = ?");
     try {
         const result = await db.querySelect(consulta, [idx]);
-        resp.status(201).json("Cargo eliminado correctamente");
+        resp.status(201).json("Estado de eliminado correctamente");
     } catch (error) {
         console.log(error);
         resp.json({"Error ": error })
