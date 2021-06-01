@@ -3,7 +3,8 @@ import db from "../../database";
 import { Iadm_activos } from "../../interfaces/AdministracionCatalogo/AdmCatalogo.interface";
 
 export const SelectREcordAll = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM adm_activos where activo=1";    
+    let consulta = "Select * FROM adm_activos where activo=1";  
+     
     try {
         const result = await db.querySelect(consulta);
         
