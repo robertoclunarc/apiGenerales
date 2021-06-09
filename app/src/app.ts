@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
 	});
 });
 
-app.use(routers);
+app.use('/api',routers);
 
 app.use((req, res, next) => {
 	res.status(404).json({
