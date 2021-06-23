@@ -29,7 +29,7 @@ app.use('/uploads',express.static(path.resolve('uploads')));
 db.conectarBD();
 
 app.get('/', (req, res) => {
-	const message = `Las APIs se ejecutan en el puerto: ${process.env.APP_PORT}`;
+	const message = `Las APIs se ejecutan en el puerto: ${process.env.APP_PORT}. La base de datos es: ${process.env.MYSQL_DB}, corriendo en el servidor ${process.env.MYSQL_SERVER}, con el usuario ${process.env.MYSQL_USER}`;
 	res.json({
 		message
 	});

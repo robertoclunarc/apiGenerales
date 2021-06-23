@@ -17,6 +17,34 @@ export const SelectREcordAll = async (req: Request, resp: Response) => {
     }
 }
 
+export const gerenciasSinActual = async (req: Request, resp: Response) => {
+    let consulta = "SELECT * FROM config_gerencias WHERE idConfigGerencia <> ?";    
+    try {
+        const result = await db.querySelect(consulta, [req.params.Id]);
+        if (result.length <= 0) {
+            return resp.status(402).json({ msg: "No Data!" });
+        }
+        return resp.status(201).json(result);
+
+    } catch (error) {
+        resp.status(401).json({ err: error });
+    }
+}
+
+export const areasTrabajo = async (req: Request, resp: Response) => {
+    let consulta = "SELECT ar.*, ar.nombre as label, ar.idAreaTrabajo as value, ar.idAreaTrabajo as idAdmAreaTrabajoGerencia FROM adm_areas_trabajo ar INNER JOIN adm_areas_relacion_gerencia rela ON ar.idAreaTrabajo = rela.idAreaTrabajo WHERE rela.idConfigGerencia = ?";    
+    try {
+        const result = await db.querySelect(consulta,  req.params.Id);
+        if (result.length <= 0) {
+            return resp.status(402).json({ msg: "No Data!" });
+        }
+        return resp.status(201).json(result);
+
+    } catch (error) {
+        resp.status(401).json({ err: error });
+    }
+}
+
 export const SelectRecordFilter = async (req: Request, resp: Response) => {
     let consulta = "Select * FROM config_gerencias where estatus=1";
     let gerencia = {
@@ -41,7 +69,7 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
 
         where.forEach(function(where, index) {
             if (index==0){
-                consulta = consulta + " WHERE " + where;
+                consulta = consulta + " AND " + where;
             }else{
                 consulta = consulta + " OR " + where;
             }
@@ -74,6 +102,7 @@ export const createRecord = async (req: Request, resp: Response) => {
         resp.json({"Error": error});
     }
 }
+
 
 export const updateRecord = async (req: Request, resp: Response) => {
     let idx = req.params.IdRec;

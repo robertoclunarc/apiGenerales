@@ -71,3 +71,17 @@ export interface Iconfig_gerencias_temporales{
     idSegUsuario:number;
     idConfigGerencia:number;
 }
+
+export interface Iconfig_activos_areas_negocios {
+    idConfigActivoAreaNegocio?:number;
+    idAdmActivo?:number;
+    idGenAreaNegocio?:number;
+    activo?:number;
+}
+
+export interface Iconfig_activos_gerencias {    
+        idConfigActivoGcia?:number;
+        idAdmActivo?:number;
+        idConfigGerencia?:number;
+        activo?:number;
+}

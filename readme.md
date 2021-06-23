@@ -31,8 +31,15 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 ## Administracion Catalogo
 - get "api/adm/activos/consultar"
 - get "api/adm/activos/filtrar/:Id/:nombre/:descripcion/:serial/:idAdmProducto/:idComprasEmpresa"
+- get "api/adm/consultarjoins"
+- get "api/activosporgerecias/:Id"
+- get "api/activosporareas/:Id"
 - post "api/adm/activos/insertar"
+- post "api/insertarareanegocio"
+- post "api/insertaractivogerencia"
 - put "api/adm/activos/actualizar/:Id"
+- delete "api/eliminargerencias/:IdRec"
+- delete "api/eliminarareasnegocio/:IdRec"
 - delete "api/adm/activos/eliminar/:Id"
 
 - get "api/adm/areasTrabajo/consultar"
@@ -49,6 +56,16 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
  - ~~put "api/compras/proveedores/actualizar/:IdProv"~~
  - ~~delete "api/compras/proveedores/eliminar/:IdProv"~~
 
+ - get "api/compras/empresas/consultar"
+ - get "api/compras/empresas/sinfiltro" 
+ - get "api/compras/filtrar/:Id/:nombre/:rif/:bd/:dirfiscal:/cerrada"
+ - get "api/compras/empresacomprasgerencia/:Id/:idarea"
+ - post "api/compras/proveedores/insertar"
+ - post "api/compras/insertarareanegocio"
+ - post "api/compras/insertaractivogerencia"
+ - put "api/compras/proveedores/actualizar/::IdRec"
+ - delete "api/compras/proveedores/eliminar/::IdRec"
+
 ## Configuraciones
 - get "api/config/cargos/consultar"
 - get "api/config/cargos/filtrar/:Idcargo/:nombre/:descripcion/:idGerencia"
@@ -57,6 +74,8 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 - delete "api/config/cargos/eliminar/:IdCargo"
 
 - get "api/config/gerencias/consultar"
+- get "api/config/gerencias/:Id/areasTrabajo"
+- get "api/config/gerencias/gerenciassinactual/:Id"
 - get "api/config/gerencias/filtrar/:IdGerencia/:nombre/:descripcion"
 - post "api/config/gerencias/insertar"
 - put "api/config/gerencias/actualizar:/IdGerenecia"

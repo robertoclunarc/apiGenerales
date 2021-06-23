@@ -1,6 +1,7 @@
 import  express  from 'express'
 
 //import provRoutes from "./compras/proveedor.router";
+import compraEmpresaRouter from './compras/compras_empresa.router';
 import activoRoutes from "./AdministracionCatalogo/activos.router";
 import areasTrabajoRouter from './AdministracionCatalogo/areasTrabajo.router';
 import cargoRouters from './configuraciones/config_cargos.router';
@@ -21,12 +22,13 @@ import ccostoRouter from './generales//gen_centro_costos.router';
 import preguntasRouter from './generales/gen_preguntas.router';
 import respuestasRouter from './generales/gen_respuestas.router';
 
-import {createToken} from '../controllers/signin.controller';
+//import {createToken} from '../controllers/signin.controller';
 
 //setting
 const routers = express();
 
 //routers.use('/compras/proveedores',provRoutes); <-----deshabilitado el 28/05/2021
+routers.use('/compras/empresas',compraEmpresaRouter);
 
 routers.use('/adm/activos',activoRoutes);
 routers.use('/adm/areasTrabajo', areasTrabajoRouter);

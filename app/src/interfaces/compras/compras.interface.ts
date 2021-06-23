@@ -10,3 +10,13 @@ export interface IProveedores {
     formas_envio?: string;
     condiciones?: string; 
 }
+
+export interface IComprasEmpresa {
+    IdComprasEmpresa?: number;
+    nombre_empresa: string;
+    rif: string;
+    base_de_datos: string;
+    fecha_ope: string;
+    cerrada: number;
+    direccion_fiscal?:string;
+}

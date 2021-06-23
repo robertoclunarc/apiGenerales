@@ -3,7 +3,7 @@ import db from "../../database";
 import { Igen_empresa } from "../../interfaces/generales/generales.interface";
 
 export const SelectREcordAll = async (req: Request, resp: Response) => {
-    let consulta = "Select * FROM gen_empresa where estatus=1";    
+    let consulta = "Select * FROM gen_empresa where cerrada='No'";    
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
@@ -51,7 +51,7 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
         }
         
         if (filtro.cerrada!="NULL"){
-            where.push( " cerrada =" + filtro.cerrada);
+            where.push( " cerrada = '" + filtro.cerrada + "'");
         }
 
         where.forEach(function(where, index) {
@@ -62,7 +62,7 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
             }
 
         });        
-        console.log(consulta);
+        
     }
     try {
         const result = await db.querySelect(consulta);
@@ -116,7 +116,7 @@ export const updateRecord = async (req: Request, resp: Response) => {
 
 export const deleteRecord = async (req: Request, resp: Response) => {
     let idx = req.params.IdRec;
-    let consulta = ("UPDATE gen_empresa SET estatus=0 WHERE IdGenEmpresa = ?");
+    let consulta = ("UPDATE gen_empresa SET cerrada='Sí' WHERE IdGenEmpresa = ?");
     try {
         const result = await db.querySelect(consulta, [idx]);
         resp.status(201).json("Empresa eliminada correctamente");
