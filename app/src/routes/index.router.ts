@@ -21,6 +21,7 @@ import areanegocioRouter from './generales/gen_area_negocio.router';
 import ccostoRouter from './generales//gen_centro_costos.router';
 import preguntasRouter from './generales/gen_preguntas.router';
 import respuestasRouter from './generales/gen_respuestas.router';
+import usuarioRouter from './usuarios/usuarios.router';
 
 //import {createToken} from '../controllers/signin.controller';
 
@@ -51,5 +52,7 @@ routers.use('/generales/area_negocio', areanegocioRouter);
 routers.use('/generales/ccosto', ccostoRouter);
 routers.use('/generales/preguntas', preguntasRouter);
 routers.use('/generales/respuestas', respuestasRouter);
+
+routers.use('/usuarios', usuarioRouter);
 
 export default routers;

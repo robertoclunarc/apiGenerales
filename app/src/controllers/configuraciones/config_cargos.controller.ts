@@ -20,10 +20,11 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
     let consulta = "Select * FROM config_cargos";
     let Cargo = {
         idConfigCargo: req.params.Id,
-        nombre: req.params.nombre,
-        descripcion: req.params.descripcion,  
+        nombre: req.params.nombre.replace(/\+|%20/g, " "),
+        descripcion: req.params.descripcion.replace(/\+|%20/g, "-"),  
         idConfigGerencia: req.params.idGerencia
     }
+    
     let where: string[] = [];
     
     if (Cargo.idConfigCargo!="NULL" || Cargo.nombre!="NULL" || Cargo.descripcion!="NULL" || Cargo.idConfigGerencia!="NULL"){        
@@ -56,7 +57,7 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
-            return resp.status(402).json({ msg: "No Data!" });
+            return resp.status(201).json({ msg: "No Data!" });
         }
 
         return resp.status(201).json(result);

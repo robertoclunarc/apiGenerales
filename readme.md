@@ -163,3 +163,9 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 - get "api/generales/respuestas/consultar"
 - get "api/generales/respuestas/filtrar/:IdResp/:idRefServicio"
 - post "api/generales/respuestas/insertar"
+
+- get "api/usuarios/consultar"
+- get "api/usuarios/filtrar/:getId/:pNombre/:sNombre/:pApellido/:sApellido/:login/:estatus/:idConfigCargo"
+- get "api/usuarios/direcciones/:getId"
+- get "api/usuarios/telefonos/:getId"
+- get "api/usuarios/correos/:getId"

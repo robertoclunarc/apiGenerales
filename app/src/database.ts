@@ -14,7 +14,7 @@ class database {
             password: key.password,
             database: key.database
         });
-        console.log(`Database ${key.database} | user ${key.user} | host ${key.host} | passw ${key.password}`);
+        //console.log(`Database ${key.database} | user ${key.user} | host ${key.host} `);
         try {
             
             let testconection = await this.cnn.query (`use ${key.database};`);

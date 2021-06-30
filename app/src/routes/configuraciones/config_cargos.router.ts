@@ -3,10 +3,10 @@ import { SelectREcordAll, SelectRecordFilter, createRecord, updateRecord, delete
 import { verifyToken } from "../../controllers/auth.controller";
 const router: Router= Router();
 
-router.get('/consultar', verifyToken, SelectREcordAll);
-router.get('/filtrar/:Id/:nombre/:descripcion/:idGerencia', verifyToken, SelectRecordFilter);
-router.post('/insertar', verifyToken, createRecord);
-router.put('/actualizar/:IdRec', verifyToken, updateRecord);
-router.delete('/eliminar/:IdRec', verifyToken, deleteRecord);
+router.get('/consultar', SelectREcordAll);
+router.get('/filtrar/:Id/:nombre/:descripcion/:idGerencia', SelectRecordFilter);
+router.post('/insertar', createRecord);
+router.put('/actualizar/:IdRec', updateRecord);
+router.delete('/eliminar/:IdRec', deleteRecord);
 
 export default router;
