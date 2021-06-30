@@ -69,6 +69,7 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 ## Configuraciones
 - get "api/config/cargos/consultar"
 - get "api/config/cargos/filtrar/:Idcargo/:nombre/:descripcion/:idGerencia"
+- get "api/config/cargosgerencias/:idGerencia/:nombreCargo"
 - post "api/config/cargos/insertar"
 - put "api/config/cargos/actualizar/:IdCargo"
 - delete "api/config/cargos/eliminar/:IdCargo"

@@ -1,4 +1,5 @@
 import {  Request, Response } from "express";
+import { Iusuarios } from "interfaces/usuarios/usuarios.interface";
 import db from "../../database";
 //import { Iusuarios } from "../../interfaces/usuarios/usuarios.interface";
 
@@ -82,6 +83,21 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
 
     } catch (error) {
         resp.status(401).json({ err: error });
+    }
+}
+
+export async function usuariosPorCargos(idConfigCargo: number[])  {
+    let consulta = "select *, CONCAT_WS(' ' ,primerNombre ,segundoNombre ,primerApellido, segundoApellido) as nombre_completo from seg_usuarios WHERE idConfigCargo in (?)";
+    let result: Iusuarios[]=[];
+    const idConfCargos: string = idConfigCargo.toString();
+
+    try {
+        result = await db.querySelect(consulta, [idConfigCargo]);     
+
+        return result;
+
+    } catch (error) {
+        console.log({ err: error });
     }
 }
 

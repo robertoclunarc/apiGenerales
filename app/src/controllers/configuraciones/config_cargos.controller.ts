@@ -1,6 +1,8 @@
 import { json, Request, Response } from "express";
 import db from "../../database";
 import { Iconfig_cargos } from "../../interfaces/configuraciones/configuraciones.interface";
+import { Iusuarios } from '../../interfaces/usuarios/usuarios.interface';
+import { usuariosPorCargos } from "../usuarios/usuarios.controller";
 
 export const SelectREcordAll = async (req: Request, resp: Response) => {
     let consulta = "Select * FROM config_cargos where estatus=1";    
@@ -66,6 +68,44 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
         resp.status(401).json({ err: error });
     }
 }
+
+export const usuariosPorCargoGcia = async (req: Request, resp: Response) => {
+    let consulta = "Select * FROM config_cargos WHERE idConfigGerencia = ? and LOWER(nombre) = lOWER(?)";     
+    const nombreCargo = req.params.nombreCargo.replace(/\+|%20/g, " ");
+    const idConfigGerencia =  req.params.idGerencia;    
+    let usuarios: Iusuarios[] = [];
+    let _cargos: number[]=[];
+    try {
+        const cargos: Iconfig_cargos[] = await db.querySelect(consulta, [idConfigGerencia, nombreCargo]);
+        
+        if (cargos.length <= 0) {
+            return resp.status(201).json({ msg: "No Data!" });            
+        }else{
+            cargos.forEach(c => {
+                if (c.idConfigCargo){
+                    _cargos.push(c.idConfigCargo);                
+                }
+            });
+            await usuariosPorCargos(_cargos).then(
+                result => {                    
+                    result?.forEach(r => {                        
+                        usuarios.push(r)
+                    })
+                }
+            )
+        }
+        if (usuarios.length <= 0) {
+            return resp.status(201).json({ msg: "No Data!" });
+        }
+
+        return resp.status(201).json(usuarios);         
+
+    } catch (error) {
+        resp.status(401).json({ err: error });
+    }
+}
+
+
 
 export const createRecord = async (req: Request, resp: Response) => {
     let newPost: Iconfig_cargos = req.body;      
