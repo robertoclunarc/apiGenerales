@@ -21,3 +21,12 @@ export interface Iadm_areas_trabajo{
     fechaAlta?: string;
     idGenAreaNegocio: number
 }
+
+export interface Iadm_unidadmedida {
+  idAdmUnidadMedida?: number;
+  nombre?: string;
+  abrev?: string;
+  orden?: number;
+  fechaAlta?: string;
+  idAdmTipoMedida?: number;
+}

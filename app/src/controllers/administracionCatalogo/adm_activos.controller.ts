@@ -74,37 +74,37 @@ export const selectActivosAreaNegocios = async (req: Request, resp: Response) =>
 export const SelectRecordFilter = async (req: Request, resp: Response) => {
     let consulta = "Select * FROM adm_activos";
     let Act = {
-        idAdmActivo: req.params.Id,
-        nombre: req.params.nombre,
-        descripcion: req.params.descripcion,  
-        serial: req.params.serial,
-        idAdmProducto: req.params.idAdmProducto,
-        idComprasEmpresa: req.params.idComprasEmpresa
+        idAdmActivo: req.params.Id ?? null,
+        nombre: req.params.nombre ?? null,
+        descripcion: req.params.descripcion ?? null, 
+        serial: req.params.serial ?? null,
+        idAdmProducto: req.params.idAdmProducto ?? null,
+        idComprasEmpresa: req.params.idComprasEmpresa ?? null
     }
     let where: string[] = [];
     
-    if (Act.idAdmActivo!="NULL" || Act.nombre!="NULL" || Act.descripcion!="NULL" || Act.serial!="NULL" || Act.idAdmProducto!="NULL" || Act.idComprasEmpresa!="NULL" ){        
-        if (Act.idAdmActivo!="NULL"){
+    if (Act.idAdmActivo || Act.nombre || Act.descripcion || Act.serial || Act.idAdmProducto || Act.idComprasEmpresa ){        
+        if (Act.idAdmActivo){
            where.push( " idAdmActivo =" + Act.idAdmActivo);
         }
 
-        if(Act.nombre!="NULL"){
+        if(Act.nombre){
             where.push( " LOWER(nombre) LIKE LOWER('%" + Act.nombre + "%')");
         }
 
-        if(Act.descripcion!="NULL"){
+        if(Act.descripcion){
             where.push( " LOWER(descripcion) LIKE LOWER('%" + Act.descripcion + "%')");
         }
 
-        if (Act.serial!="NULL"){
+        if (Act.serial){
             where.push( " LOWER(serial) LIKE LOWER('%" + Act.serial + "%')");
         }
 
-        if (Act.idAdmProducto!="NULL"){
+        if (Act.idAdmProducto){
             where.push( " idAdmProducto =" + Act.idAdmProducto);
         }
 
-        if (Act.idComprasEmpresa!="NULL"){
+        if (Act.idComprasEmpresa){
             where.push( " idComprasEmpresa =" + Act.idComprasEmpresa);
         }
 
