@@ -48,6 +48,12 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 - put "api/adm/areasTrabajo/actualizar/:IdAreaTrabajo"
 - delete "api/adm/areasTrabajo/eliminar/:IdAreaTrabajo"
 
+- get "api/adm/unidadmedidas/consultar"
+- get "api/adm/unidadmedidas/filtrar/:Id"
+- post "api/adm/unidadmedidas/insertar"
+- put "api/adm/unidadmedidas/actualizar/:IdAreaTrabajo"
+- delete "api/adm/unidadmedidas/eliminar/:IdAreaTrabajo"
+
 ## Compras
 ### Estos accesos estan deshabilitados
  - ~~get "api/compras/proveedores/consultar"~~
