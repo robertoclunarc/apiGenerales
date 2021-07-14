@@ -7,7 +7,7 @@ export const SelectRecordAll = async (req: Request, resp: Response) => {
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
-            return resp.status(402).json({ msg: "No Data!" });
+            return resp.status(201).json({ msg: "No Data!" });
         }
 
         return resp.status(201).json(result);
@@ -22,7 +22,7 @@ export const SelectRecordNoFilter = async (req: Request, resp: Response) => {
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
-            return resp.status(402).json({ msg: "No Data!" });
+            return resp.status(201).json({ msg: "No Data!" });
         }
 
         return resp.status(201).json(result);
@@ -38,7 +38,7 @@ export const empresacomprasgerencia = async (req: Request, resp: Response) => {
     try {
         const result = await db.querySelect(consulta, [req.params.Id, req.params.idarea]);
         if (result.length <= 0) {
-            return resp.status(402).json({ msg: "No Data!" });
+            return resp.status(201).json({ msg: "No Data!" });
         }
 
         return resp.status(201).json(result);
@@ -52,37 +52,37 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
     let consulta = "SELECT * FROM compras_empresa ";
     let emp = {
         
-        IdComprasEmpresa: req.params.Id,
-        nombre_empresa: req.params.nombre,
-        rif: req.params.rif,
-        bd: req.params.bd,              
-        direccion_fiscal: req.params.dirfiscal,
-        cerrada: req.params.cerrada
+        IdComprasEmpresa: req.params.Id ?? null,
+        nombre_empresa: req.params.nombre ?? null,
+        rif: req.params.rif ?? null,
+        bd: req.params.bd ?? null,             
+        direccion_fiscal: req.params.dirfiscal ?? null,
+        cerrada: req.params.cerrada ?? null
     }
     let where: string[] = [];
     
-    if (emp.IdComprasEmpresa!="NULL" || emp.nombre_empresa!="NULL" || emp.rif!="NULL" || emp.bd!="NULL" ||  emp.direccion_fiscal!="NULL" || emp.cerrada!="NULL"){        
-        if (emp.IdComprasEmpresa!="NULL"){
+    if (emp.IdComprasEmpresa || emp.nombre_empresa || emp.rif || emp.bd ||  emp.direccion_fiscal || emp.cerrada){        
+        if (emp.IdComprasEmpresa){
            where.push( " IdComprasEmpresa =" + emp.IdComprasEmpresa);
         }
 
-        if(emp.nombre_empresa!="NULL"){
+        if(emp.nombre_empresa){
             where.push( " LOWER(nombre_empresa) LIKE LOWER('%" + emp.nombre_empresa + "%')");
         }
 
-        if(emp.rif!="NULL"){
+        if(emp.rif){
             where.push( " LOWER(rif) LIKE LOWER('%" + emp.rif + "%')");
         }
 
-        if (emp.bd!="NULL"){
+        if (emp.bd){
             where.push( " LOWER(base_de_datos) LIKE LOWER('%" + emp.bd + "%')");
         }
 
-        if (emp.direccion_fiscal!="NULL"){
+        if (emp.direccion_fiscal){
             where.push( " LOWER(direccion_fiscal) LIKE LOWER('%" + emp.direccion_fiscal + "%')");
         }
 
-        if (emp.cerrada!="NULL"){
+        if (emp.cerrada){
             where.push( " cerrada = " + emp.cerrada + " ");
         }
 
@@ -99,7 +99,7 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
-            return resp.status(402).json({ msg: "No Data!" });
+            return resp.status(201).json({ msg: "No Data!" });
         }
 
         return resp.status(201).json(result);
