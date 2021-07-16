@@ -3,12 +3,8 @@ version: "3.3"
 
 services:
     n-config-generales:
-        #Contenedor del Frontend de la aplicación, NO ejecuta código de backend
-        build: 
-            context: .
-            #args: 
-                #- config=transven
-        container_name: n-config-generales
+        image: $BUILD_TAG
+        container_name: $BUILD_TAG
         restart: always
         #volumes:
             # Los archivos del front deben copiarse en la carpeta /frontend

@@ -1,7 +1,7 @@
 image: node:12
 
 stages:
-    - dependencias
+    - dependencies
     - build
     - containerization
     - deploy
@@ -11,7 +11,7 @@ cache:
         - node_modules/
 
 install_dependencies:
-    stage: dependencias
+    stage: dependencies
     script:
         - npm install
         # - npm install -g typescript
@@ -19,27 +19,24 @@ install_dependencies:
         paths:
             - node_modules/
 
-# DESARROLLO CAMBIA
 build:
     stage: build
     script:
-        - docker build -t n-config-generales .
-        #- docker image rm my-registry/my-application
+        - docker build -t $BUILD_TAG .
 
 register_image:
     stage: containerization
     variables:
         SHA: $CI_COMMIT_SHA
     script:
-        - docker tag n-config-generales $DOCKER_SERVER/n-config-generales:$SHA
-        - docker tag n-config-generales $DOCKER_SERVER/n-config-generales:latest
-        - docker push $DOCKER_SERVER/n-config-generales:$SHA
-        - docker push $DOCKER_SERVER/n-config-generales:latest
+        - docker tag $BUILD_TAG $DOCKER_SERVER/$BUILD_TAG:$SHA
+        - docker tag $BUILD_TAG $DOCKER_SERVER/$BUILD_TAG:latest
+        - docker push $DOCKER_SERVER/$BUILD_TAG:$SHA
+        - docker push $DOCKER_SERVER/$BUILD_TAG:latest
     only:
         - master
-# -------------
 
-deploy_to_desarrollo:
+deploy_to_dev:
     stage: deploy
     variables:
         MYSQL_SERVER: $DESA_MYSQL_SERVER

@@ -1,6 +1,7 @@
 # Script en nodejs, typescript para los insert, update, delete y consultas de registros de Proveedores, Cargos y Cctivos de la BD del sistema sisglobal.
 
 ## Tablas:
+
 - compras_proveedores
 - config_cargos
 - adm_activos
@@ -14,6 +15,7 @@
 - config_noticias
 
 ## Variables de entorno:
+
 ```
 - APP_PORT
 - JWT_SECRET
@@ -24,11 +26,21 @@
 - MYSQL_PORT
 ```
 
+## Variables de CI/CD
+
+```
+- APP_PORT
+- BUILD_TAG
+```
+
 ## TOKEN
+
 Para acceder a cualquiera de las rutas especificadas se requiere crear el token, para esto se debe ir a la siguiente ruta y pasar como parametro el usuario
+
 - get "/token/:login"
 
 ## Administracion Catalogo
+
 - get "api/adm/activos/consultar"
 - get "api/adm/activos/filtrar/:Id/:nombre/:descripcion/:serial/:idAdmProducto/:idComprasEmpresa"
 - get "api/adm/consultarjoins"
@@ -55,24 +67,27 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 - delete "api/adm/unidadmedidas/eliminar/:IdAreaTrabajo"
 
 ## Compras
-### Estos accesos estan deshabilitados
- - ~~get "api/compras/proveedores/consultar"~~
- - ~~get "api/compras/proveedores/filtrar/:Id/:nombre/:rif/:direccion/:valoracion/:telefono/:observaciones/:contacto"~~
- - ~~post "api/compras/proveedores/insertar"~~
- - ~~put "api/compras/proveedores/actualizar/:IdProv"~~
- - ~~delete "api/compras/proveedores/eliminar/:IdProv"~~
 
- - get "api/compras/empresas/consultar"
- - get "api/compras/empresas/sinfiltro" 
- - get "api/compras/filtrar/:Id/:nombre/:rif/:bd/:dirfiscal:/cerrada"
- - get "api/compras/empresacomprasgerencia/:Id/:idarea"
- - post "api/compras/proveedores/insertar"
- - post "api/compras/insertarareanegocio"
- - post "api/compras/insertaractivogerencia"
- - put "api/compras/proveedores/actualizar/::IdRec"
- - delete "api/compras/proveedores/eliminar/::IdRec"
+### Estos accesos estan deshabilitados
+
+- ~~get "api/compras/proveedores/consultar"~~
+- ~~get "api/compras/proveedores/filtrar/:Id/:nombre/:rif/:direccion/:valoracion/:telefono/:observaciones/:contacto"~~
+- ~~post "api/compras/proveedores/insertar"~~
+- ~~put "api/compras/proveedores/actualizar/:IdProv"~~
+- ~~delete "api/compras/proveedores/eliminar/:IdProv"~~
+
+- get "api/compras/empresas/consultar"
+- get "api/compras/empresas/sinfiltro"
+- get "api/compras/filtrar/:Id/:nombre/:rif/:bd/:dirfiscal:/cerrada"
+- get "api/compras/empresacomprasgerencia/:Id/:idarea"
+- post "api/compras/proveedores/insertar"
+- post "api/compras/insertarareanegocio"
+- post "api/compras/insertaractivogerencia"
+- put "api/compras/proveedores/actualizar/::IdRec"
+- delete "api/compras/proveedores/eliminar/::IdRec"
 
 ## Configuraciones
+
 - get "api/config/cargos/consultar"
 - get "api/config/cargos/filtrar/:Idcargo/:nombre/:descripcion/:idGerencia"
 - get "api/config/cargos/cargosgerencias/:idGerencia/:nombreCargo"
@@ -141,6 +156,7 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 - delete "api/config/gerenciastemp/eliminar/:IdGciaTemp"
 
 ## Generales
+
 - get "api/generales/gen_emp/empresagerenciaarea"
 - get "api/generales/gen_emp/consultaSiIngresado/:empre/:geren/:area"
 - post "api/generales/gen_emp/insertar"
