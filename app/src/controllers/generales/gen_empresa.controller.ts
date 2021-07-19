@@ -67,7 +67,7 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
-            return resp.status(402).json({ msg: "No Data!" });
+            return resp.status(201).json({ msg: "No Data!" });
         }
 
         return resp.status(201).json(result);
@@ -86,7 +86,7 @@ export const createRecord = async (req: Request, resp: Response) => {
     console.log(newPost.rif);
     let result = await db.querySelect("Select * FROM gen_empresa where rif LIKE '"+newPost.rif+"'");
     if (result.length>0){
-        return resp.status(402).json({ msg: "El Rif Ya Existe" });
+        return resp.status(201).json({ msg: "El Rif Ya Existe" });
     }
     /////////////////////////////////////////////////////////
     try {
