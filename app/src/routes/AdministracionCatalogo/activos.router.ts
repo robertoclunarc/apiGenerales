@@ -7,7 +7,7 @@ router.get('/consultar', SelectREcordAll);
 router.get('/consultarjoins', SelectREcordJoins);
 router.get('/activosporgerecias/:Id', selectActivosGcia);
 router.get('/activosporareas/:Id', selectActivosAreaNegocios);
-router.get('/filtrar/:Id?/:nombre?/:descripcion?/:serial?/:idAdmProducto?/:idComprasEmpresa?', SelectRecordFilter);
+router.get('/filtrar/:Id/:nombre/:descripcion/:serial/:idAdmProducto/:idComprasEmpresa', SelectRecordFilter);
 router.post('/insertar', createRecord);
 router.post('/insertarareanegocio', createRecordAreaNegocio);
 router.post('/insertaractivogerencia', createRecordActivosGerencias);

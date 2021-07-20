@@ -52,13 +52,14 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
     let consulta = "SELECT * FROM compras_empresa ";
     let emp = {
         
-        IdComprasEmpresa: req.params.Id ?? null,
-        nombre_empresa: req.params.nombre ?? null,
-        rif: req.params.rif ?? null,
-        bd: req.params.bd ?? null,             
-        direccion_fiscal: req.params.dirfiscal ?? null,
-        cerrada: req.params.cerrada ?? null
+        IdComprasEmpresa:  req.params.Id  == 'null' ? null : req.params.Id,
+        nombre_empresa: req.params.nombre == 'null' ? null : req.params.nombre,
+        rif: req.params.rif == 'null' ? null : req.params.rif,
+        bd: req.params.bd == 'null' ? null : req.params.bd,       
+        direccion_fiscal: req.params.dirfiscal == 'null' ? null : req.params.dirfiscal,
+        cerrada: req.params.cerrada == 'null' ? null : req.params.cerrada,
     }
+    
     let where: string[] = [];
     
     if (emp.IdComprasEmpresa || emp.nombre_empresa || emp.rif || emp.bd ||  emp.direccion_fiscal || emp.cerrada){        
@@ -67,6 +68,7 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
         }
 
         if(emp.nombre_empresa){
+            emp.nombre_empresa=emp.nombre_empresa.replace(/\+|%20/g," ");
             where.push( " LOWER(nombre_empresa) LIKE LOWER('%" + emp.nombre_empresa + "%')");
         }
 
