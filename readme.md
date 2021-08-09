@@ -42,7 +42,7 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 ## Administracion Catalogo
 
 - get "api/adm/activos/consultar"
-- get "api/adm/activos/filtrar/:Id/:nombre/:descripcion/:serial/:idAdmProducto/:idComprasEmpresa"
+- get "api/adm/activos/filtrar/:Id/:nombre/:descripcion/:serial/:idAdmProducto/:idComprasEmpresa/:idGciaCreada"
 - get "api/adm/consultarjoins"
 - get "api/activosporgerecias/:Id"
 - get "api/activosporareas/:Id"
