@@ -86,6 +86,8 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 - put "api/compras/proveedores/actualizar/::IdRec"
 - delete "api/compras/proveedores/eliminar/::IdRec"
 
+- get "api/compras/productos/consultar"
+
 ## Configuraciones
 
 - get "api/config/cargos/consultar"

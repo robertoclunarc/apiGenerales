@@ -2,6 +2,7 @@ import  express  from 'express'
 
 //import provRoutes from "./compras/proveedor.router";
 import compraEmpresaRouter from './compras/compras_empresa.router';
+import productoRouter from './compras/producto.router';
 import activoRoutes from "./AdministracionCatalogo/activos.router";
 import unidadMedidaRouter from './AdministracionCatalogo/unidadmedidas.router'
 import areasTrabajoRouter from './AdministracionCatalogo/areasTrabajo.router';
@@ -31,6 +32,7 @@ const routers = express();
 
 //routers.use('/compras/proveedores',provRoutes); <-----deshabilitado el 28/05/2021
 routers.use('/compras/empresas',compraEmpresaRouter);
+routers.use('/compras/productos',productoRouter);
 
 routers.use('/adm/activos',activoRoutes);
 routers.use('/adm/areasTrabajo', areasTrabajoRouter);
