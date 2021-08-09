@@ -21,7 +21,7 @@ export const SelectREcordAll = async (req: Request, resp: Response) => {
 }
 
 export const SelectREcordJoins = async (req: Request, resp: Response) => {
-    let consulta = "SELECT adm_activos.idAdmActivo,	adm_activos.nombre,	adm_activos.descripcion,	adm_activos.fechaAlta,	adm_activos.fechaModificacion,	adm_activos.serial,	adm_activos.idAdmProducto,	adm_activos.idComprasEmpresa,	adm_activos.tipo,	adm_activos.activo,	adm_activos.IdEmpresaPropietaria,	adm_activos.IdAreaNegocio,	adm_activos.IdactivoPadre,	grpgcia.nombre_gerencia,	gen_area_negocio.nombre AS nombre_area_negocio,	compras_empresa.nombre_empresa,	gen_empresa.nombre_empresa AS empresa_propietaria,	activosPadres.nombre AS nombreActivoPadre FROM	adm_activos LEFT JOIN (	SELECT	cag.idAdmActivo,	GROUP_CONCAT(cg.nombre SEPARATOR ' | ') AS nombre_gerencia	FROM config_activos_gerencias cag	INNER JOIN config_gerencias cg ON cag.idConfigGerencia = cg.idConfigGerencia	AND cag.activo = 1	GROUP BY	cag.idAdmActivo) grpgcia ON grpgcia.idAdmActivo = adm_activos.idAdmActivo LEFT JOIN config_activos_areas_negocios ON config_activos_areas_negocios.idAdmActivo = adm_activos.idAdmActivo AND config_activos_areas_negocios.activo = 1 LEFT JOIN gen_area_negocio ON config_activos_areas_negocios.idGenAreaNegocio = gen_area_negocio.idGenAreaNegocio AND config_activos_areas_negocios.activo = 1 LEFT JOIN compras_empresa ON compras_empresa.IdComprasEmpresa = adm_activos.idComprasEmpresa LEFT JOIN compras_empresa AS gen_empresa ON adm_activos.IdEmpresaPropietaria = gen_empresa.IdComprasEmpresa LEFT JOIN (	SELECT	a.idAdmActivo,	a.nombre FROM	adm_activos a) AS activosPadres ON activosPadres.idAdmActivo = adm_activos.IdactivoPadre WHERE	adm_activos.activo = 1 GROUP BY adm_activos.idAdmActivo";  
+    let consulta = "SELECT adm_activos.idAdmActivo,	adm_activos.nombre,	adm_activos.descripcion,	adm_activos.fechaAlta,	adm_activos.fechaModificacion,	adm_activos.serial,	adm_activos.idAdmProducto,	adm_activos.idComprasEmpresa,	adm_activos.tipo,	adm_activos.activo,	adm_activos.IdEmpresaPropietaria,	adm_activos.IdAreaNegocio,	adm_activos.IdactivoPadre,	grpgcia.nombre_gerencia,	gen_area_negocio.nombre AS nombre_area_negocio,	compras_empresa.nombre_empresa,	gen_empresa.nombre_empresa AS empresa_propietaria,	activosPadres.nombre AS nombreActivoPadre, config_gerencias.descripcion AS gciaCreado FROM	adm_activos LEFT JOIN (	SELECT	cag.idAdmActivo,	GROUP_CONCAT(cg.nombre SEPARATOR ' | ') AS nombre_gerencia	FROM config_activos_gerencias cag	INNER JOIN config_gerencias cg ON cag.idConfigGerencia = cg.idConfigGerencia	AND cag.activo = 1	GROUP BY	cag.idAdmActivo) grpgcia ON grpgcia.idAdmActivo = adm_activos.idAdmActivo LEFT JOIN config_activos_areas_negocios ON config_activos_areas_negocios.idAdmActivo = adm_activos.idAdmActivo AND config_activos_areas_negocios.activo = 1 LEFT JOIN gen_area_negocio ON config_activos_areas_negocios.idGenAreaNegocio = gen_area_negocio.idGenAreaNegocio AND config_activos_areas_negocios.activo = 1 LEFT JOIN compras_empresa ON compras_empresa.IdComprasEmpresa = adm_activos.idComprasEmpresa LEFT JOIN compras_empresa AS gen_empresa ON adm_activos.IdEmpresaPropietaria = gen_empresa.IdComprasEmpresa LEFT JOIN (	SELECT	a.idAdmActivo,	a.nombre FROM	adm_activos a) AS activosPadres ON activosPadres.idAdmActivo = adm_activos.IdactivoPadre LEFT JOIN config_gerencias ON adm_activos.idGciaCreado = config_gerencias.idConfigGerencia WHERE adm_activos.activo = 1 GROUP BY adm_activos.idAdmActivo";  
      
     try {
         const result = await db.querySelect(consulta);
@@ -80,10 +80,11 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
         serial: req.params.serial == 'null' ? null : req.params.serial,
         idAdmProducto: req.params.idAdmProducto == 'null' ? null : req.params.idAdmProducto,
         idComprasEmpresa: req.params.idComprasEmpresa == 'null' ? null : req.params.idComprasEmpresa,
+        idGciaCreado: req.params.idGciaCreado == 'null' ? null : req.params.idGciaCreado,
     }
     let where: string[] = [];
     
-    if (Act.idAdmActivo || Act.nombre || Act.descripcion || Act.serial || Act.idAdmProducto || Act.idComprasEmpresa ){        
+    if (Act.idAdmActivo || Act.nombre || Act.descripcion || Act.serial || Act.idAdmProducto || Act.idComprasEmpresa || Act.idGciaCreado){        
         if (Act.idAdmActivo){
            where.push( " idAdmActivo =" + Act.idAdmActivo);
         }
@@ -106,6 +107,10 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
 
         if (Act.idComprasEmpresa){
             where.push( " idComprasEmpresa =" + Act.idComprasEmpresa);
+        }
+
+        if (Act.idGciaCreado){
+            where.push( " idGciaCreado =" + Act.idGciaCreado);
         }
 
         where.forEach(function(where, index) {
