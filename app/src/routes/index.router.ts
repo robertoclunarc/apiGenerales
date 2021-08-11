@@ -4,6 +4,7 @@ import  express  from 'express'
 import compraEmpresaRouter from './compras/compras_empresa.router';
 import productoRouter from './compras/producto.router';
 import activoRoutes from "./AdministracionCatalogo/activos.router";
+import tiposActivoRoutes from "./AdministracionCatalogo/tiposActivos.router";
 import unidadMedidaRouter from './AdministracionCatalogo/unidadmedidas.router'
 import areasTrabajoRouter from './AdministracionCatalogo/areasTrabajo.router';
 import cargoRouters from './configuraciones/config_cargos.router';
@@ -37,6 +38,7 @@ routers.use('/compras/productos',productoRouter);
 routers.use('/adm/activos',activoRoutes);
 routers.use('/adm/areasTrabajo', areasTrabajoRouter);
 routers.use('/adm/unidadmedidas', unidadMedidaRouter);
+routers.use('/adm/tipos-activos/', tiposActivoRoutes);
 
 routers.use('/config/cargos',cargoRouters);
 routers.use('/config/gerencias', gerenciasRouter);

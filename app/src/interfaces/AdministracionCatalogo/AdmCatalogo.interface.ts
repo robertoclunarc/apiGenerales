@@ -31,3 +31,8 @@ export interface Iadm_unidadmedida {
   fechaAlta?: string;
   idAdmTipoMedida?: number;
 }
+
+export interface Iadm_tiposActivo {
+  idAdmTipoActivo?: number;
+  descripcion?: string;
+}

@@ -54,6 +54,11 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 - delete "api/eliminarareasnegocio/:IdRec"
 - delete "api/adm/activos/eliminar/:Id"
 
+- get "api/adm/tipos-activos/consultar"
+- post "api/adm/tipos-activos/insertar"
+- put "api/adm/tipos-activos/actualizar/:Id"
+- delete "api/adm/tipos-activos/eliminar/:Id"
+
 - get "api/adm/areasTrabajo/consultar"
 - get "api/adm/areasTrabajo/filtrar/:IdAreaTrabajo/:nombre/:idGenAreaNegocio"
 - post "api/adm/areasTrabajo/insertar"
