@@ -126,7 +126,7 @@ export const SelectRecordFilter = async (req: Request, resp: Response) => {
     try {
         const result = await db.querySelect(consulta);
         if (result.length <= 0) {
-            return resp.status(402).json({ msg: "No Data!" });
+            return resp.status(201).json({ msg: "No Data!" });
         }
 
         return resp.status(201).json(result);
