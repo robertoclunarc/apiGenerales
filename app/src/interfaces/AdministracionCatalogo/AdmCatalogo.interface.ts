@@ -12,6 +12,7 @@ export interface Iadm_activos{
   IdEmpresaPropietaria?: number;
   IdAreaNegocio?: number;
   IdactivoPadre?: string;
+  idGciaCreado?: number;
 } 
 
 export interface Iadm_areas_trabajo{
@@ -29,4 +30,9 @@ export interface Iadm_unidadmedida {
   orden?: number;
   fechaAlta?: string;
   idAdmTipoMedida?: number;
+}
+
+export interface Iadm_tiposActivo {
+  idAdmTipoActivo?: number;
+  descripcion?: string;
 }

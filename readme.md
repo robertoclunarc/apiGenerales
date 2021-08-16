@@ -42,7 +42,7 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 ## Administracion Catalogo
 
 - get "api/adm/activos/consultar"
-- get "api/adm/activos/filtrar/:Id/:nombre/:descripcion/:serial/:idAdmProducto/:idComprasEmpresa"
+- get "api/adm/activos/filtrar/:Id/:nombre/:descripcion/:serial/:idAdmProducto/:idComprasEmpresa/:idGciaCreada"
 - get "api/adm/consultarjoins"
 - get "api/activosporgerecias/:Id"
 - get "api/activosporareas/:Id"
@@ -53,6 +53,11 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 - delete "api/eliminargerencias/:IdRec"
 - delete "api/eliminarareasnegocio/:IdRec"
 - delete "api/adm/activos/eliminar/:Id"
+
+- get "api/adm/tipos-activos/consultar"
+- post "api/adm/tipos-activos/insertar"
+- put "api/adm/tipos-activos/actualizar/:Id"
+- delete "api/adm/tipos-activos/eliminar/:Id"
 
 - get "api/adm/areasTrabajo/consultar"
 - get "api/adm/areasTrabajo/filtrar/:IdAreaTrabajo/:nombre/:idGenAreaNegocio"
@@ -85,6 +90,8 @@ Para acceder a cualquiera de las rutas especificadas se requiere crear el token,
 - post "api/compras/insertaractivogerencia"
 - put "api/compras/proveedores/actualizar/::IdRec"
 - delete "api/compras/proveedores/eliminar/::IdRec"
+
+- get "api/compras/productos/consultar"
 
 ## Configuraciones
 
