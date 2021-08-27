@@ -1,3 +1,4 @@
+import { getAllServiciosGerencia, getOneServicioGerencia, getPorGerencia } from './../controllers/gerencias/servicios-gerencias';
 import  express  from 'express'
 
 //import provRoutes from "./compras/proveedor.router";
@@ -41,7 +42,6 @@ routers.use('/adm/unidadmedidas', unidadMedidaRouter);
 routers.use('/adm/tipos-activos/', tiposActivoRoutes);
 
 routers.use('/config/cargos',cargoRouters);
-routers.use('/config/gerencias', gerenciasRouter);
 routers.use('/config/ciudades', ciudadesRouter);
 routers.use('/config/estados', estadosRouter);
 routers.use('/config/municipios', municipioRouter);
@@ -50,7 +50,12 @@ routers.use('/config/parroquias', parroquiaRouter);
 routers.use('/config/noticias',noticiaRouter);
 routers.use('/config/servgen', sergenRouter);
 routers.use('/config/paramsistem', paramsistemRouter);
+
+routers.use('/config/gerencias', gerenciasRouter);
 routers.use('/config/gerenciastemp',gerenciasTempRouter);
+routers.get('/config/serviciosgerencias', getAllServiciosGerencia);
+routers.get('/config/serviciosgerencias/:idServicio', getOneServicioGerencia);
+routers.get('/config/serviciosgerencias/porgerencia/:idGerencia', getPorGerencia);
 
 routers.use('/generales/empresas',empresaRouter);
 routers.use('/generales/gen_emp', gen_emp_areaRouter);

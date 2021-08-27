@@ -1,7 +1,7 @@
-import { json, Request, Response } from "express";
+import { Request, Response } from "express";
 import { Iadm_areas_trabajo } from "interfaces/AdministracionCatalogo/AdmCatalogo.interface";
 import db from "../../database";
-import { Iconfig_gerencias } from "../../interfaces/configuraciones/configuraciones.interface";
+// import { Iconfig_gerencias } from "../../interfaces/configuraciones/configuraciones.interface";
 
 export const SelectREcordAll = async (req: Request, resp: Response) => {
     let consulta = "SELECT g.* , g.nombre AS label, g.idConfigGerencia AS value FROM config_gerencias g";    

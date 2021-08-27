@@ -1,0 +1,7 @@
+###
+GET http://localhost:3006/api/config/serviciosgerencias
+###
+GET http://localhost:3006/api/config/serviciosgerencias/15
+
+###
+GET http://localhost:3006/api/config/serviciosgerencias/porgerencia/5
