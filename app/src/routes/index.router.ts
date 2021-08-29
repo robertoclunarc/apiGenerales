@@ -1,4 +1,4 @@
-import { getAllServiciosGerencia, getOneServicioGerencia, getPorGerencia } from './../controllers/gerencias/servicios-gerencias';
+// import { getAllServiciosGerencia, getOneServicioGerencia, getPorGerencia } from './../controllers/gerencias/servicios-gerencias';
 import  express  from 'express'
 
 //import provRoutes from "./compras/proveedor.router";
@@ -53,9 +53,9 @@ routers.use('/config/paramsistem', paramsistemRouter);
 
 routers.use('/config/gerencias', gerenciasRouter);
 routers.use('/config/gerenciastemp',gerenciasTempRouter);
-routers.get('/config/serviciosgerencias', getAllServiciosGerencia);
-routers.get('/config/serviciosgerencias/:idServicio', getOneServicioGerencia);
-routers.get('/config/serviciosgerencias/porgerencia/:idGerencia', getPorGerencia);
+// routers.get('/config/serviciosgerencias', getAllServiciosGerencia);
+// routers.get('/config/serviciosgerencias/:idServicio', getOneServicioGerencia);
+// routers.get('/config/serviciosgerencias/porgerencia/:idGerencia', getPorGerencia);
 
 routers.use('/generales/empresas',empresaRouter);
 routers.use('/generales/gen_emp', gen_emp_areaRouter);
