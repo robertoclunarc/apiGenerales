@@ -1,11 +1,11 @@
 #STAGE 0 COMPILE TS ON NODEJS
-FROM node:12 as builder
+FROM mhart/alpine-node:12 as builder
 WORKDIR /app
 COPY ./app/ /app/
 RUN npm install && npm run build 
 
 #una vez que se compila se crea el contenedor definitivo
-FROM node:12
+FROM mhart/alpine-node:12
 WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json .
